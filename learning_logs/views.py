@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Topic, Entry
 from .forms import TopicForm, EntryForm
 from django.http import HttpResponseRedirect
@@ -31,7 +31,7 @@ def new_topic(request):
         form = TopicForm(request.POST)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect(reverse('topics'))
+            return redirect('learning_logs:topics')
     context = {'form' : form}
     return render(request, 'learning_logs/new_topic.html', context)
 
@@ -47,7 +47,7 @@ def new_entry(request, topic_id):
             new_entry = form.save(commit=False)
             new_entry.topic = topic
             new_entry.save()
-            return HttpResponseRedirect(reverse('topic', args=[topic_id]))
+            return redirect('learning_logs:topic', topic_id=topic.id) 
     context = {'topic':topic, 'form':form}
     return render(request, 'learning_logs/new_entry.html', context)
 
@@ -62,7 +62,20 @@ def edit_entry(request, entry_id):
         form = EntryForm(instance=entry, data=request.POST)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect(reverse('topic', args=[topic.id]))
+            return redirect('learning_logs:topic', topic_id=topic.id)
 
     context = {'entry': entry, 'topic': topic, 'form':form}
     return render(request, 'learning_logs/edit_entry.html', context)
+
+def delete_entry(request, entry_id):
+    """Exclui uma entrada ja existente"""
+    entry = Entry.objects.get(id=entry_id)
+    topic = entry.topic
+
+    if request.method == 'POST':
+        #Se o usuario confirmou no formulario, deleta o objeto
+        entry.delete()
+        return redirect('topic', topic_id=topic.id)
+
+    context = {'entry': entry, 'topic': topic}
+    return render(request, 'learning_logs/delete_entry.html', context)
