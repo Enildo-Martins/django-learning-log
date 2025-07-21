@@ -19,6 +19,11 @@
             <p>
                 <a href="{% url 'edit_entry' entry.id %}">Editar anotação</a>
             </p>
+
+            <p>
+                <a href="{% url 'delete_entry' entry.id %}">Apagar anotação</a>
+            </p>
+
         </li>
 
         {% empty%}
