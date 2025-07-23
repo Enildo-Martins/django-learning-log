@@ -13,7 +13,7 @@
 <form method="post">
     {% csrf_token %}
     <button type="submit" class="btn btn-danger">Sim, excluir</button>
-    <a href="{% url 'topic' topic.id %}" class="btn btn-secondary">Cancelar</a>
+    <a href="{% url 'learning_logs:topic' topic.id %}" class="btn btn-secondary">Cancelar</a>
 </form>
 
 {% endblock content %}

@@ -75,7 +75,7 @@ def delete_entry(request, entry_id):
     if request.method == 'POST':
         #Se o usuario confirmou no formulario, deleta o objeto
         entry.delete()
-        return redirect('topic', topic_id=topic.id)
+        return redirect('learning_logs:topic', topic_id=topic.id)
 
     context = {'entry': entry, 'topic': topic}
     return render(request, 'learning_logs/delete_entry.html', context)
