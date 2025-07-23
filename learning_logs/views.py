@@ -1,8 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import Topic, Entry
 from .forms import TopicForm, EntryForm
-from django.http import HttpResponseRedirect
-from django.urls import reverse
+
 
 def index(request):
     """Pagina principal do Learning_Log"""
