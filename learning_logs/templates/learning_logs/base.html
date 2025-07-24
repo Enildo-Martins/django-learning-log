@@ -15,6 +15,20 @@
     {% bootstrap_css %}
     {% bootstrap_javascript %}
 
+    <style>
+        .ul_none ul {
+            display: none;
+        }
+
+        .helptext {
+            display: none;
+        }
+
+        .help-block {
+            display: none;
+        }
+    </style>
+
 </head>
 
 <body>
@@ -22,13 +36,8 @@
     <nav class="navbar navbar-inverse navbar-static-top">
         <div class="container-fluid">
             <div class="navbar-header">
-                <button 
-                    type="button" 
-                    class="navbar-toggle collapsed" 
-                    data-toggle="collapse" 
-                    data-target="#navbar" 
-                    aria-expanded="false"
-                >
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false">
                 </button>
                 <a class="navbar-brand" href="{% url 'learning_logs:index' %}">Learning_Log</a>
             </div>
@@ -40,24 +49,24 @@
 
                 <ul class="nav navbar-nav navbar-right">
                     {% if user.is_authenticated %}
-                        <li><a> Olá, {{ user.username }} </a></li>
-                        <li><a href="{% url 'users:logout' %}">Sair</a></li>
+                    <li><a> Olá, {{ user.username }} </a></li>
+                    <li><a href="{% url 'users:logout' %}">Sair</a></li>
                     {% else %}
-                        <li><a href="{% url 'users:login' %}">Entrar</a></li>
-                        <li><a href="{% url 'users:register' %}">Registrar</a></li>
+                    <li><a href="{% url 'users:login' %}">Entrar</a></li>
+                    <li><a href="{% url 'users:register' %}">Registrar</a></li>
                     {% endif %}
                 </ul>
             </div>
         </div>
     </nav>
-    
+
     <div class="container">
-        <div>
+        <div div class="page-header">
             {% block header %}{% endblock header%}
         </div>
         <div>
             {% block content%}{% endblock content %}
-        </div> 
+        </div>
     </div>
 </body>
 

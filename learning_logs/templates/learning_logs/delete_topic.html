@@ -9,7 +9,7 @@
 
 <div class="card my-3">
     <div class="card-body">
-        <h3>{{ entry.text|linebreaks }}</h3>
+        <h3>{{ topic.text|linebreaks }}</h3>
     </div>
 </div>
 
@@ -17,7 +17,7 @@
     {% csrf_token %}
     <button type="submit" class="btn btn-danger">Sim, excluir</button>
 
-    <a href="{% url 'learning_logs:topic' topic.id %}" class="btn btn-default">Cancelar</a>
+    <a href="{% url 'learning_logs:topics'%}" class="btn btn-default">Cancelar</a>
 </form>
 
 {% endblock content %}

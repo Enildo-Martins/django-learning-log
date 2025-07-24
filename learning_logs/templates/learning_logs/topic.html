@@ -1,40 +1,37 @@
 {% extends "learning_logs/base.html" %}
 
+{% block header %}
+<h2>{{ topic }}</h2>
+{% endblock header %}
+
 {% block content %}
 
-    <p>Tópico: {{ topic }}</p>
 
-    <p>Anotações: </p>
 
-    <p>
-        <a href="{% url 'learning_logs:new_entry' topic.id %}">Adicione uma nova anotação</a>
-    </p>
+<p>
+    <a href="{% url 'learning_logs:new_entry' topic.id %}" class="btn btn-primary">Adicione uma nova anotação</a>
+</p>
 
-    <ul>
-        {% for entry in entries %}
+{% for entry in entries %}
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="pull-right">
+            <a href="{% url 'learning_logs:edit_entry' entry.id %}" class="btn btn-primary btn-sm">Editar anotação</a>
+            <a href="{% url 'learning_logs:delete_entry' entry.id %}" class="btn btn-danger btn-sm">Apagar anotação</a>
+        </div>
 
-        <li>
-            <p>{{ entry.date_added | date:'M d, Y H:i' }}</p>
-            <p>{{ entry.text | linebreaks }}</p>
-            <p>
-                <a href="{% url 'learning_logs:edit_entry' entry.id %}">Editar anotação</a>
-            </p>
+        <h2 class="panel-title">{{ entry.date_added|date:'M d, Y H:i' }}</h2>
 
-            <p>
-                <a href="{% url 'learning_logs:delete_entry' entry.id %}">Apagar anotação</a>
-            </p>
+        <div class="clearfix"></div>
+    </div>
 
-        </li>
+    <div class="panel-body">
+        {{ entry.text|linebreaks }}
+    </div>
+</div>
+{% empty %}
+<p>Não há nenhuma anotação para este tópico ainda.</p>
+{% endfor %}
 
-        {% empty%}
-
-        <li>
-            Não ha registros.
-
-        </li>
-
-        {% endfor %}
-
-    </ul>
 
 {% endblock content %}
