@@ -47,6 +47,23 @@ def new_topic(request):
     return render(request, 'learning_logs/new_topic.html', context)
 
 @login_required
+def delete_topic(request, topic_id):
+    """Remove em cascata um tópico"""
+    topic = Topic.objects.get(id=topic_id)
+
+    # Garante que o assunto pertence ao usuario atual
+    if topic.owner != request.user:
+        raise Http404
+
+    if request.method == 'POST':
+        #Se o usuario confirmou no formulario, deleta o objeto
+        topic.delete()
+        return redirect('learning_logs:topics')
+
+    context = {'topic': topic}
+    return render(request, 'learning_logs/delete_topic.html', context)
+
+@login_required
 def new_entry(request, topic_id):
     """Acrescenta uma nova entrada para um assunto em particular."""
     topic = Topic.objects.get(id=topic_id)

@@ -1,18 +1,31 @@
 {% extends "learning_logs/base.html" %}
 
-{% block content %} 
-    Tópicos:
+{% block header %}
+<h1>Tópicos:</h1>
+{% endblock header %}
 
-    <ul>
-        {% for topic in topics%}
-            <li>
-                <a href="{% url 'learning_logs:topic' topic.id %}"> {{ topic }} </a>
-            </li>
-        {% empty %}
-            <li>Nenhum tópico foi adicionado ainda.</li>
-        {% endfor %}
-    </ul>
+{% block content %}
 
-    <a href="{% url 'learning_logs:new_topic' %}">Adicionar novos tópicos</a>
+<ul class="list-group">
+    {% for topic in topics %}
+    <li class="list-group-item">
+        <div class="pull-right">
+            <a href="{% url 'learning_logs:delete_topic' topic.id %}" class="btn btn-danger btn-sm">Apagar tópico</a>
+        </div>
+
+        <h3 class="list-group-item-heading">
+            <a href="{% url 'learning_logs:topic' topic.id %}">{{ topic }}</a>
+        </h3>
+
+        <div class="clearfix"></div>
+    </li>
+    {% empty %}
+    <li class="list-group-item">Nenhum tópico foi adicionado ainda.</li>
+    {% endfor %}
+</ul>
+
+<p>
+    <a href="{% url 'learning_logs:new_topic' %}" class="btn btn-primary">Adicionar novos tópicos</a>
+</p>
 
 {% endblock content %}
