@@ -20,7 +20,7 @@
 <body>
 
     <nav class="navbar navbar-inverse navbar-static-top">
-        <div class="container">
+        <div class="container-fluid">
             <div class="navbar-header">
                 <button 
                     type="button" 
@@ -50,9 +50,15 @@
             </div>
         </div>
     </nav>
-
+    
+    <div class="container">
+        <div>
+            {% block header %}{% endblock header%}
+        </div>
+        <div>
+            {% block content%}{% endblock content %}
+        </div> 
+    </div>
 </body>
 
 </html>
-
-{% block content%}{% endblock content %}

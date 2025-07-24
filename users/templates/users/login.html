@@ -1,14 +1,74 @@
 {% extends 'learning_logs/base.html' %}
+{% load bootstrap3 %}
+
+{% block header %}
+    <h2>Entre com sua conta de login.</h2>
+{% endblock header %}
 
 {% block content %}
 
-    <form action="{% url 'users:login' %}" method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
+<style>
+  /* CSS Customizado para o design moderno */
+  body {
+      background-color: #f8f9fa; /* Fundo cinza claro, como na imagem */
+  }
 
-        <button name="submit">Entrar</button>
-        <input type="hidden" name="next" value="{% url 'learning_logs:index' %}"/>
+  .login-container {
+      margin-top: 80px; /* Espaço para afastar o card do topo */
+  }
+  
+  .panel-heading h2 {
+      text-align: center; /* Centraliza o título "Login" */
+      margin-top: 10px;
+  }
 
-    </form>
+  .panel-footer {
+      text-align: center;
+      background-color: #fff; /* Garante que o rodapé do card seja branco */
+      border-top: 1px solid #ddd;
+  }
 
+  .app-footer {
+   position: fixed;
+   left: 0;
+   bottom: 0;
+   width: 100%;
+   color: #6c757d;
+   text-align: center;
+   padding: 20px;
+}
+</style>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-4 col-md-offset-4 login-container">
+          
+          <div class="panel panel-default"  >
+              <div class="panel-heading">
+                  <h2>Login</h2>
+              </div>
+              <div class="panel-body">
+                  <form action="{% url 'users:login' %}" method="post" class="form">
+                      {% csrf_token %}
+                      
+                      {% bootstrap_form form %}
+
+                      {% buttons %}
+                          <button name="submit" class="btn btn-primary btn-block">Entrar</button>
+                      {% endbuttons %}
+                      
+                      <input type="hidden" name="next" value="{% url 'learning_logs:index' %}"/>
+                  </form>
+              </div>
+              <div class="panel-footer">
+                 Não tem uma conta? <a href="{% url 'users:register' %}">Crie uma</a>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+
+<footer class="app-footer">
+  Copyright © {% now "Y" %} — Enildo Martins
+</footer>
 {% endblock content %}
